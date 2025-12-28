@@ -395,7 +395,7 @@ ngx_show_version_info(void)
 
     if (ngx_show_help) {
         ngx_write_stderr(
-            "Usage: nginx [-?hvVtTq] [-s signal] [-p prefix]" NGX_LINEFEED
+            "Usage: nginx [-?hvVtTSq] [-s signal] [-p prefix]" NGX_LINEFEED
             "             [-e filename] [-c filename] [-g directives]"
                           NGX_LINEFEED NGX_LINEFEED
             "Options:" NGX_LINEFEED
@@ -406,6 +406,7 @@ ngx_show_version_info(void)
             "  -t            : test configuration and exit" NGX_LINEFEED
             "  -T            : test configuration, dump it and exit"
                                NGX_LINEFEED
+            "  -S            : test configuration syntax, dump it and exit" NGX_LINEFEED
             "  -q            : suppress non-error messages "
                                "during configuration testing" NGX_LINEFEED
             "  -s signal     : send signal to a master process: "
@@ -839,6 +840,12 @@ ngx_get_options(int argc, char *const *argv)
             case 'T':
                 ngx_test_config = 1;
                 ngx_dump_config = 1;
+                break;
+
+            case 'S':
+                ngx_test_config = 1;
+                ngx_dump_config = 1;
+                ngx_test_syntax = 1;
                 break;
 
             case 'q':

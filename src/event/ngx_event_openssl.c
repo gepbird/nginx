@@ -475,6 +475,11 @@ ngx_int_t
 ngx_ssl_certificate(ngx_conf_t *cf, ngx_ssl_t *ssl, ngx_str_t *cert,
     ngx_str_t *key, ngx_array_t *passwords)
 {
+    // requires loading certificate from disk, skip it
+    if (ngx_test_syntax) {
+        return NGX_OK;
+    }
+
     char            *err;
     X509            *x509, **elm;
     u_long           n;
@@ -944,6 +949,11 @@ ngx_int_t
 ngx_ssl_client_certificate(ngx_conf_t *cf, ngx_ssl_t *ssl, ngx_str_t *cert,
     ngx_int_t depth)
 {
+    // requires loading certificate from disk, skip it
+    if (ngx_test_syntax) {
+        return NGX_OK;
+    }
+
     int                   n, i;
     char                 *err;
     X509                 *x509;
@@ -1048,6 +1058,11 @@ ngx_int_t
 ngx_ssl_trusted_certificate(ngx_conf_t *cf, ngx_ssl_t *ssl, ngx_str_t *cert,
     ngx_int_t depth)
 {
+    // requires loading certificate from disk, skip it
+    if (ngx_test_syntax) {
+        return NGX_OK;
+    }
+
     int              i, n;
     char            *err;
     X509            *x509;
@@ -1109,6 +1124,11 @@ ngx_ssl_trusted_certificate(ngx_conf_t *cf, ngx_ssl_t *ssl, ngx_str_t *cert,
 ngx_int_t
 ngx_ssl_crl(ngx_conf_t *cf, ngx_ssl_t *ssl, ngx_str_t *crl)
 {
+    // requires loading certificate from disk, skip it
+    if (ngx_test_syntax) {
+        return NGX_OK;
+    }
+
     int                  n, i;
     char                *err;
     X509_CRL            *x509;

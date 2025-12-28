@@ -26,6 +26,7 @@ static ngx_event_t     ngx_cleaner_event;
 static ngx_event_t     ngx_shutdown_event;
 
 ngx_uint_t             ngx_test_config;
+ngx_uint_t             ngx_test_syntax;
 ngx_uint_t             ngx_dump_config;
 ngx_uint_t             ngx_quiet_mode;
 
@@ -290,6 +291,11 @@ ngx_init_cycle(ngx_cycle_t *old_cycle)
     if (ngx_test_config && !ngx_quiet_mode) {
         ngx_log_stderr(0, "the configuration file %s syntax is ok",
                        cycle->conf_file.data);
+    }
+
+    // we are done with syntax checking, return
+    if (ngx_test_syntax) {
+        return cycle;
     }
 
     for (i = 0; cycle->modules[i]; i++) {

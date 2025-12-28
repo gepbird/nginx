@@ -1120,6 +1120,11 @@ ngx_parse_inet6_url(ngx_pool_t *pool, ngx_url_t *u)
 ngx_int_t
 ngx_inet_resolve_host(ngx_pool_t *pool, ngx_url_t *u)
 {
+    // skip resolving host as it requires internet
+    if (ngx_test_syntax) {
+        return NGX_OK;
+    }
+
     u_char           *host;
     ngx_uint_t        n;
     struct addrinfo   hints, *res, *rp;
@@ -1201,6 +1206,11 @@ failed:
 ngx_int_t
 ngx_inet_resolve_host(ngx_pool_t *pool, ngx_url_t *u)
 {
+    // skip resolving host as it requires internet
+    if (ngx_test_syntax) {
+        return NGX_OK;
+    }
+
     u_char              *host;
     ngx_uint_t           i, n;
     struct hostent      *h;
